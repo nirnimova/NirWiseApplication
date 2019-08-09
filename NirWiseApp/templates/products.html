@@ -1,0 +1,44 @@
+﻿<style>
+    body .mainDiv .separator {
+        background-color: #337ab7;
+        color: white;
+        font-size: 17px;
+        padding-right: 15px;
+        margin-top: 15px;
+    }
+</style>
+<div class="mainDiv ng-scope">
+    <form name="AgentsForm" class="form-inline ng-pristine ng-valid" ng-submit="SearchWiseAgents()">
+        <fieldset class="row pull-left ng-pristine ng-valid ng-valid-minlength">
+            <div class="col-lg-16 pull-left" style="width:100%;">
+                <br />
+                <div class="col-sm-6 pull-left">
+                    <h1>Select Product:</h1>
+                </div>
+                <div class="col-sm-2 pull-left" style="top: 65px;">
+                    <span class="form-group">
+                        <select class="form-control ng-pristine ng-untouched ng-valid ng-empty" name="product" ng-model="product" ng-change="filterResults()">
+                            <option ng-repeat="p in products" value="{{p.Id}}">{{p.Name}}</option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <div style="float: right; width: 100%" class="gridTbl" ng-show="product">
+        <div class="separator">Agents</div>
+        <table tr-ng-grid page-items="10" items="agentsWithAccounts" enable-filtering="false" selection-mode="SingleRow" selected-items="mySelectedItems" locale="he">
+            <thead>
+                <tr>
+                    <th field-name="AccountFirstName" display-name="account first name"></th>
+                    <th field-name="AccountSurName" display-name="account sur name"></th>
+                    <th field-name="AgentFirstName" display-name="agent first name"></th>
+                    <th field-name="AgentSurName" display-name="agent sur name"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr></tr>
+            </tbody>
+        </table>
+    </div>
+</div>

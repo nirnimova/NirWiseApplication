@@ -1,0 +1,64 @@
+﻿<style>
+    table{
+        margin-top: 10px;
+    }
+    label{
+        padding: 10px;
+    }
+</style>
+<fieldset class="row pull-right ng-pristine ng-valid ng-valid-minlength">
+    <div class="col-lg-16 pull-right" style="width:100%;">
+        <br />
+        <div class="col-sm-1">
+            <span class="form-group">
+                <label for="id"></label>id:<input class="form-control ng-pristine ng-untouched ng-valid ng-empty" name="id" type="text" ng-model="agent.Id" disabled />
+            </span>
+        </div>
+        <div class="col-sm-2">
+            <span class="form-group">
+                <label for="firstname"></label>firstname:<input class="form-control ng-pristine ng-untouched ng-valfirstname ng-empty" name="firstname" ng-model="agent.FirstName" type="text" disabled />
+            </span>
+        </div>
+        <div class="col-sm-2">
+            <span class="form-group">
+                <label for="surname"></label>surname:<input class="form-control ng-pristine ng-untouched ng-valid ng-empty" name="surname" type="text" ng-model="agent.SurName" disabled />
+            </span>
+        </div>
+    </div>
+    <div class="col-lg-16 pull-right" style="width:100%">
+        <div class="separator"></div>
+        <table tr-ng-grid page-items="10" items="accounts" enable-filtering="false" selection-mode="SingleRow" selected-items="mySelectedAccounts" locale="he">
+            <thead>
+                <tr>
+                    <th field-name="Id" display-name="id"></th>
+                    <th field-name="FirstName" display-name="first name"></th>
+                    <th field-name="SurName" display-name="sur name"></th>
+                    <th field-name="City" display-name="city"></th>
+                    <th field-name="Street" display-name="street"></th>
+                    <th field-name="HouseNumber" display-name="house number"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr></tr>
+            </tbody>
+        </table>
+    </div>
+    <form name="EditAgentForm" class="form-inline ng-pristine ng-valid" ng-submit="UpdateAgentFees()">
+        <div class="col-lg-16 pull-left" style="width:100%;" ng-repeat="pf in productsFees">
+            <br />
+            <div class="col-sm-1">
+                <span class="form-group">
+                    <label>{{pf.ProductName}}</label>
+                </span>
+            </div>
+            <div class="col-sm-2">
+                <span class="form-group">
+                    <input id="{{pf.ProductName}}" class="form-control ng-pristine ng-untouched ng-valid ng-empty" type="text" value="{{pf.Fee}}" />
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-16 pull-left" style="width:100%;">
+            <span class="form-group col-sm-4"><input type="submit" class="btn btn-primary" value="Update Agent Fees" ng-disabled="productsFees == null" /></span>
+        </div>
+    </form>
+</fieldset>

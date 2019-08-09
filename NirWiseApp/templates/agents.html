@@ -1,0 +1,205 @@
+﻿<style>
+    body .mainDiv .separator {
+        background-color: #337ab7;
+        color: white;
+        font-size: 17px;
+        padding-right: 15px;
+        margin-top: 15px;
+        text-align: left;
+    }
+
+    .belowFooter {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 40px 35px;
+    }
+
+        .belowFooter .btn {
+            margin-left: 15px;
+            margin-bottom: 5px;
+        }
+
+    form[name="SearchForm"] span.form-group {
+        text-align: left;
+    }
+</style>
+<div class="mainDiv ng-scope">
+    <form name="AgentsForm" class="form-inline ng-pristine ng-valid" ng-submit="SearchWiseAgents()">
+        <fieldset class="row pull-right ng-pristine ng-valid ng-valid-minlength">
+            <div class="col-lg-16 pull-right" style="        width: 100%;">
+                <br />
+                <div class="col-sm-2">
+                    <span class="form-group">
+                        <label for="id"></label>id:<input class="form-control ng-pristine ng-untouched ng-valid ng-empty" name="id" ng-model="searchAgent.Id" type="text" />
+                    </span>
+                    <span class="form-group">
+                        <label for="firstname"></label>firstname:<input class="form-control ng-pristine ng-untouched ng-valfirstname ng-empty" name="firstname" ng-model="searchAgent.FirstName" type="text" />
+                    </span>
+                </div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2" style="top: 55px;">
+                    <span class="form-group">
+                        <label for="surname"></label>surname:<input class="form-control ng-pristine ng-untouched ng-valid ng-empty" name="surname" ng-model="searchAgent.SurName" type="text" />
+                    </span>
+                    <span class="form-group">
+
+                    </span>
+                </div>
+                <div class="col-sm-1 pull-left" style="top: 75px;
+        margin-left: 30px;">
+                    <button id="modalBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">+</button>
+                </div>
+                <div class="col-sm-2 pull-right" style="top: 75px;">
+                    <span class="form-group"><input type="submit" class="btn btn-primary" value="search" /></span>
+                    <span class="form-group"><button type="button" ng-click="ClearForm()" class="btn btn-primary">clear</button></span>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <div style="float: right;
+        width: 100%" class="gridTbl">
+        <div class="separator">Agents</div>
+        <table tr-ng-grid page-items="10" items="agents" enable-filtering="false" selection-mode="SingleRow" selected-items="mySelectedAgents" locale="he">
+            <thead>
+                <tr>
+                    <th field-name="Id" display-name="id"></th>
+                    <th field-name="FirstName" display-name="first name"></th>
+                    <th field-name="SurName" display-name="sur name"></th>
+                    <th field-name="Edit" display-name="edit"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td field-name="Edit"><input type="button" class="btn" ng-click="RedirectToEditMode(gridDisplayItem.Id);" ng-disabled="gridDisplayItem.Id != mySelectedAgents[0].Id" value="&#x270E;" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">New Agent</h4>
+                    </div>
+                    <form name="NewAAgentForm" class="form-inline ng-pristine ng-valid">
+                        <div class="modal-body form-group">
+                            <div class="row ">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>First Name:</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input name="firstName" type="text" ng-model="newAgent.FirstName" required />
+                                    </div>
+                                </div>
+                                <div class="col-sm-1" style="color: red;">
+                                    <div class="form-group">
+                                        <p ng-show="NewAAgentForm.firstName.$error.required">Required*</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Sur Name:</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <input type="text" name="surName" ng-model="newAgent.SurName" required />
+                                    </div>
+                                </div>
+                                <div class="col-sm-1" style="color: red;">
+                                    <div class="form-group">
+                                        <p ng-show="NewAAgentForm.surName.$error.required">Required*</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Product:</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <span class="form-group">
+                                        <select class="form-control ng-pristine ng-untouched ng-valid ng-empty" name="product" ng-model="product" required>
+                                            <option ng-repeat="p in products" value="{{p.Id}}">{{p.Name}}</option>
+                                        </select>
+                                    </span>
+                                </div>
+                                <div class="col-sm-1" style=" color: red">
+                                    <div class="form-group">
+                                        <p ng-show="NewAAgentForm.product.$error.required">Required*</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="belowFooter">
+                            <!--<div class="row" style="color:red;">
+                                <p ng-show="mySelectedAccounts.length == 0">Please Select Account*</p>
+                            </div>-->
+                            <div class="row"><label for="fee">Enter Fee:</label></div>
+                            <div class="row">
+                                <input name="fee" ng-model="fee" type="text" required />
+                                <button type="button" ng-click="AddNewAgent()" ng-disabled="mySelectedAccounts.length == 0 || NewAAgentForm.$invalid" class="btn btn-primary">Add New Agent</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <form name="SearchForm" class="form-inline ng-pristine ng-valid" ng-submit="SearchTopWiseAccounts()">
+                            <fieldset class="row pull-right ng-pristine ng-valid ng-valid-minlength">
+                                <div class="col-lg-16 pull-right" style="width: 100%;">
+                                    <br />
+                                    <div class="col-sm-2">
+                                        <span class="form-group">
+                                            <label for="id"></label>id:<input class="form-control ng-pristine ng-untouched ng-valid ng-empty" name="id" ng-model="searchAccount.Id" type="text" />
+                                        </span>
+                                        <span class="form-group">
+                                            <label for="firstname"></label>firstname:<input class="form-control ng-pristine ng-untouched ng-valfirstname ng-empty" name="firstname" ng-model="searchAccount.FirstName" type="text" />
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-2">
+                                        <span class="form-group">
+                                            <label for="surname"></label>surname:<input class="form-control ng-pristine ng-untouched ng-valid ng-empty" name="surname" ng-model="searchAccount.SurName" type="text" />
+                                        </span>
+                                        <span class="form-group">
+                                            <label for="city"></label>city:<input class="form-control ng-pristine ng-untouched ng-valid ng-empty" name="city" ng-model="searchAccount.City" type="text" />
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-2 pull-right" style="top: 75px;">
+                                        <span class="form-group"><input type="submit" class="btn btn-primary" value="&#128269;" /></span>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                        <div style="float: right; width: 100%" class="gridTbl">
+                            <div class="separator">Accounts</div>
+                            <table tr-ng-grid page-items="10" items="accounts" enable-filtering="false" selection-mode="SingleRow" selected-items="mySelectedAccounts" locale="he">
+                                <thead>
+                                    <tr>
+                                        <th field-name="Id" display-name="id"></th>
+                                        <th field-name="FirstName" display-name="first name"></th>
+                                        <th field-name="SurName" display-name="sur name"></th>
+                                        <th field-name="City" display-name="city"></th>
+                                        <th field-name="Street" display-name="street"></th>
+                                        <th field-name="HouseNumber" display-name="house number"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr></tr>
+                                </tbody>
+                                <tfoot><pre style="color:red; text-align:left;" ng-show="mySelectedAccounts.length == 0">Please Select Account*</pre></tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
